@@ -1,0 +1,28 @@
+group = 'com.voyager'
+apply plugin: 'idea'
+
+subprojects {
+    group = 'com.voyager'
+    version = '0.0.1'
+
+    apply plugin: 'java'
+    apply plugin: 'idea'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+
+    dependencies {
+        compile 'ch.qos.logback:logback-classic:1.2.3'
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = "1.12"
+}

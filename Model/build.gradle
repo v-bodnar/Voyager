@@ -1,0 +1,10 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+dependencies {
+    compile('org.springframework.data:spring-data-commons-core:1.4.1.RELEASE')
+}
+
+jar {
+    baseName = 'voyager-model'
+}
