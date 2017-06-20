@@ -6,8 +6,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
+import org.springframework.data.mongodb.core.mapping.event.ValidatingMongoEventListener;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 /**
  * Created by volodymyr.bodnar on 6/19/2017.
@@ -27,5 +29,15 @@ public class Application {
     @Bean
     public AbstractSecurityWebApplicationInitializer securityWebApplicationInitializer(){
         return new AbstractSecurityWebApplicationInitializer(){};
+    }
+
+    @Bean
+    public ValidatingMongoEventListener validatingMongoEventListener() {
+        return new ValidatingMongoEventListener(validator());
+    }
+
+    @Bean
+    public LocalValidatorFactoryBean validator() {
+        return new LocalValidatorFactoryBean();
     }
 }
