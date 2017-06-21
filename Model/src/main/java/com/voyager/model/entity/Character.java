@@ -1,10 +1,16 @@
 package com.voyager.model.entity;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
+
 /**
  * Created by volodymyr.bodnar on 6/19/2017.
  */
 public class Character extends AbstractEntity{
     private String nickName;
+    private UserDetails.Sex sex;
+
+    @DBRef
+    private User owner;
 
     public String getNickName() {
         return nickName;
@@ -14,18 +20,19 @@ public class Character extends AbstractEntity{
         this.nickName = nickName;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Character character = (Character) o;
-
-        return nickName != null ? nickName.equals(character.nickName) : character.nickName == null;
+    public UserDetails.Sex getSex() {
+        return sex;
     }
 
-    @Override
-    public int hashCode() {
-        return nickName != null ? nickName.hashCode() : 0;
+    public void setSex(UserDetails.Sex sex) {
+        this.sex = sex;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 }

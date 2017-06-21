@@ -1,16 +1,43 @@
 package com.voyager.model.entity;
 
+import org.joda.time.DateTime;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 /**
  * Created by volodymyr.bodnar on 6/21/2017.
  */
 public class UserDetails extends AbstractEntity{
-    private Sex sex;
-    @DBRef
-    private Character character;
+    @DBRef(lazy = true)
+    private User user;
 
-    enum Sex{
-        MALE, FEMALE;
+    private Sex sex;
+    private DateTime lastActivityTime;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Sex getSex() {
+        return sex;
+    }
+
+    public void setSex(Sex sex) {
+        this.sex = sex;
+    }
+
+    public DateTime getLastActivityTime() {
+        return lastActivityTime;
+    }
+
+    public void setLastActivityTime(DateTime lastActivityTime) {
+        this.lastActivityTime = lastActivityTime;
+    }
+
+    public enum Sex{
+        MALE, FEMALE, TRANSGENDER;
     }
 }

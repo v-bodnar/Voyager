@@ -1,5 +1,7 @@
 package com.voyager.model.entity;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
+
 import java.util.List;
 
 /**
@@ -12,6 +14,8 @@ public class Planet extends SpaceBody{
     private Race inhabitants;
     private int population;
     private List<Location> locations;
+    @DBRef
+    private Sector sector;
 
     public enum Type{
         VOLCANIC, GAS_GIANT, DESERT, ICE_GIANT, OCEAN_PLANET, TERRESTIAL_PLANET;

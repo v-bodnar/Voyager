@@ -2,10 +2,11 @@ package com.voyager;
 
 import com.voyager.core.Application;
 import com.voyager.core.repository.CharacterRepository;
+import com.voyager.core.repository.SectorRepository;
+import com.voyager.core.repository.SpaceShipRepository;
 import com.voyager.core.repository.UserRepository;
+import com.voyager.model.entity.*;
 import com.voyager.model.entity.Character;
-import com.voyager.model.entity.Role;
-import com.voyager.model.entity.User;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,17 +31,43 @@ public class MongoDBTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private SectorRepository sectorRepository;
+
+    @Autowired
+    private SpaceShipRepository spaceShipRepository;
+
     @Test
-    @Ignore
+
     public void persistPlayer() {
-        Character character = new Character();
-        character = characterRepository.save(character);
+//        User user = userRepository.findOneByEmail("bodik@list.ru").orElseThrow(() -> new RuntimeException());
+//        Sector sector = new Sector();
+//        sector.setStartX(1);
+//        sector.setStartY(1);
+//        sector.setName("Alpha");
+//        sectorRepository.save(sector);
+//
+//        SpaceShip spaceShip = new SpaceShip();
+//        spaceShip.setName("Voyager");
+//        spaceShipRepository.save(spaceShip);
+//        User user = userRepository.findOneByEmail("bodik@list.ru").orElseThrow(() -> new RuntimeException());
+//        Sector sector = sectorRepository.findAll().stream().findFirst().orElseThrow(() -> new RuntimeException());
+//        SpaceShip spaceShip = spaceShipRepository.findAll().stream().findFirst().orElseThrow(() -> new RuntimeException());
+//        MainCharacter character = new MainCharacter();
+//        character.setNickName("test");
+//        character.setSex(UserDetails.Sex.MALE);
+//        character.setOwner(user);
+//        character.setSector(sector);
+//        character.setSpaceShip(spaceShip);
+//        character = characterRepository.save(character);
         Character foundCharacter = characterRepository.findAll().stream().findFirst().orElse(null);
-        assertTrue(foundCharacter.equals(character));
+
+        Sector foundSector = sectorRepository.findAll().stream().findFirst().orElse(null);
+        assertTrue(foundSector != null);
     }
 
     @Test
-
+    @Ignore
     public void persistUser(){
 
         User user = new User("bodik@list.ru",
