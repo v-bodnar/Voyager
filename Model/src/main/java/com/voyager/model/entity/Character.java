@@ -3,7 +3,7 @@ package com.voyager.model.entity;
 /**
  * Created by volodymyr.bodnar on 6/19/2017.
  */
-public class Player extends AbstractEntity{
+public class Character extends AbstractEntity{
     private String nickName;
 
     public String getNickName() {
@@ -19,9 +19,9 @@ public class Player extends AbstractEntity{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Player player = (Player) o;
+        Character character = (Character) o;
 
-        return nickName != null ? nickName.equals(player.nickName) : player.nickName == null;
+        return nickName != null ? nickName.equals(character.nickName) : character.nickName == null;
     }
 
     @Override

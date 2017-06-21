@@ -1,9 +1,9 @@
 package com.voyager;
 
 import com.voyager.core.Application;
-import com.voyager.core.repository.PlayerRepository;
+import com.voyager.core.repository.CharacterRepository;
 import com.voyager.core.repository.UserRepository;
-import com.voyager.model.entity.Player;
+import com.voyager.model.entity.Character;
 import com.voyager.model.entity.Role;
 import com.voyager.model.entity.User;
 import org.junit.Ignore;
@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
 public class MongoDBTest {
 
     @Autowired
-    private PlayerRepository playerRepository;
+    private CharacterRepository characterRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -33,19 +33,19 @@ public class MongoDBTest {
     @Test
     @Ignore
     public void persistPlayer() {
-        Player player = new Player();
-        player = playerRepository.save(player);
-        Player foundPlayer = playerRepository.findAll().stream().findFirst().orElse(null);
-        assertTrue(foundPlayer.equals(player));
+        Character character = new Character();
+        character = characterRepository.save(character);
+        Character foundCharacter = characterRepository.findAll().stream().findFirst().orElse(null);
+        assertTrue(foundCharacter.equals(character));
     }
 
     @Test
 
     public void persistUser(){
-        User user = new User();
-        user.setRole(Role.USER);
-        user.setEmail("bodik@list.ru");
-        user.setPassword(new BCryptPasswordEncoder().encode("nenimdada"));
+
+        User user = new User("bodik@list.ru",
+                new BCryptPasswordEncoder().encode("nenimdada"),
+                Role.USER, true);
         user = userRepository.save(user);
         assertNotNull(user);
     }

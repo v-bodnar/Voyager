@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id;
 /**
  * Created by volodymyr.bodnar on 6/19/2017.
  */
-public abstract class AbstractEntity {
+public abstract class AbstractEntity implements Identifiable{
     @Id
     private String id;
 

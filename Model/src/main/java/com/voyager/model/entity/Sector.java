@@ -9,5 +9,5 @@ import java.util.List;
  */
 public class Sector extends AbstractEntity {
     @DBRef
-    List<Player> players;
+    List<Character> characters;
 }

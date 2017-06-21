@@ -3,7 +3,6 @@ apply plugin: 'org.springframework.boot'
 
 dependencies {
     compile 'ch.qos.logback:logback-classic:1.2.3'
-    compile 'org.springframework.boot:spring-boot-starter-security:1.5.4.RELEASE'
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-devtools")
     compile project(':Model')
