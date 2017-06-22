@@ -21,7 +21,7 @@ public class Sector extends AbstractEntity {
     @Transient
     private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 
-    @DBRef
+    @DBRef(lazy = true)
     private List<MainCharacter> mainCharacters = new LinkedList<>();
 
     @DBRef

@@ -37,6 +37,8 @@ public class SectorService {
             sector.setStartX(x);
             sector.setStartY(y);
             sector.setName("Alpha");
+            sectorRepository.save(sector);
+            return sector;
         }
 
         int maxX = 1;

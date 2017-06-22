@@ -1,5 +1,8 @@
 package com.voyager.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.annotation.Transient;
@@ -18,7 +21,7 @@ import java.util.Set;
 /**
  * Created by volodymyr.bodnar on 6/19/2017.
  */
-public class User implements org.springframework.security.core.userdetails.UserDetails, CredentialsContainer, Identifiable{
+public class User implements org.springframework.security.core.userdetails.UserDetails, CredentialsContainer, Identifiable {
     @Id
     private String id;
     @NotNull
@@ -29,13 +32,16 @@ public class User implements org.springframework.security.core.userdetails.UserD
     @NotNull
     private Role role;
     @Transient
-    private final Set<GrantedAuthority> authorities;
+    @JsonIgnore
+    private Set<GrantedAuthority> authorities;
     @DBRef
+    @repository.annotations.CascadeSave
     private UserDetails userDetails;
     private boolean enabled;
 
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     @PersistenceConstructor
-    public User(String email, String password, Role role, boolean enabled) {
+    public User(@JsonProperty("email") String email, @JsonProperty("password") String password, @JsonProperty("role") Role role, @JsonProperty("enabled") boolean enabled) {
         this.email = email;
         this.password = password;
         this.role = role;

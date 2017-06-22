@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by volodymyr.bodnar on 6/19/2017.
@@ -19,6 +20,7 @@ public class WorldService {
 
     @PostConstruct
     public void init() {
+        Locale.setDefault(Locale.ENGLISH);
         sectors = sectorService.findAllSectors();
     }
 }

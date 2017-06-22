@@ -38,7 +38,7 @@ public class MongoDBTest {
     private SpaceShipRepository spaceShipRepository;
 
     @Test
-
+    @Ignore
     public void persistPlayer() {
 //        User user = userRepository.findOneByEmail("bodik@list.ru").orElseThrow(() -> new RuntimeException());
 //        Sector sector = new Sector();

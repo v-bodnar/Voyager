@@ -3,6 +3,8 @@ package com.voyager.model.entity;
 import org.joda.time.DateTime;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
+import java.util.Locale;
+
 /**
  * Created by volodymyr.bodnar on 6/21/2017.
  */
@@ -12,6 +14,7 @@ public class UserDetails extends AbstractEntity{
 
     private Sex sex;
     private DateTime lastActivityTime;
+    private Locale locale;
 
     public User getUser() {
         return user;
@@ -35,6 +38,14 @@ public class UserDetails extends AbstractEntity{
 
     public void setLastActivityTime(DateTime lastActivityTime) {
         this.lastActivityTime = lastActivityTime;
+    }
+
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
     }
 
     public enum Sex{
