@@ -1,9 +1,13 @@
 package com.voyager.model.entity;
 
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * Created by volodymyr.bodnar on 6/19/2017.
@@ -14,11 +18,14 @@ public class Sector extends AbstractEntity {
     private int startX;
     private int startY;
 
-    @DBRef
-    private List<MainCharacter> mainCharacters;
+    @Transient
+    private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 
     @DBRef
-    private List<Planet> planets;
+    private List<MainCharacter> mainCharacters = new LinkedList<>();
+
+    @DBRef
+    private List<Planet> planets = new LinkedList<>();
 
     public String getName() {
         return name;
@@ -50,5 +57,51 @@ public class Sector extends AbstractEntity {
 
     public void setPlanets(List<Planet> planets) {
         this.planets = planets;
+    }
+
+    public int getMainCharactersCount() {
+        readWriteLock.readLock().lock();
+        try {
+            return mainCharacters.size();
+        }finally {
+            readWriteLock.readLock().unlock();
+        }
+    }
+
+    public void addCharacterIfNotExist(MainCharacter character) {
+        readWriteLock.writeLock().lock();
+        try {
+            if(!mainCharacters.contains(character)) {
+                mainCharacters.add(character);
+            }
+        }finally {
+            readWriteLock.writeLock().unlock();
+        }
+    }
+
+    public void removeCharacterIfExists(MainCharacter character) {
+        readWriteLock.writeLock().lock();
+        try {
+            if(mainCharacters.contains(character)) {
+                mainCharacters.remove(character);
+            }
+        }finally {
+            readWriteLock.writeLock().unlock();
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public String toString() {
+        return "Sector: " + name + " (" + startX + ", " + startY + ")";
     }
 }

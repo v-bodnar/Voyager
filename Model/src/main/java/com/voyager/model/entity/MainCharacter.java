@@ -17,8 +17,18 @@ public class MainCharacter extends Character {
         return sector;
     }
 
-    public void setSector(Sector sector) {
-        this.sector = sector;
+    public synchronized void setSector(Sector sector) {
+        if(this.sector == null){
+            this.sector = sector;
+            sector.addCharacterIfNotExist(this);
+            return;
+        }
+
+        if(!this.sector.equals(sector)){
+            this.sector.removeCharacterIfExists(this);
+            sector.addCharacterIfNotExist(this);
+            this.sector = sector;
+        }
     }
 
     public SpaceShip getSpaceShip() {
