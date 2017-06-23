@@ -13,7 +13,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -21,7 +20,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.mock.http.MockHttpOutputMessage;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -39,7 +41,6 @@ import static junit.framework.TestCase.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
-
 /**
  * Created by volodymyr.bodnar on 6/19/2017.
  */
@@ -76,12 +77,6 @@ public class RestClientTest {
 
     private HttpMessageConverter mappingJackson2HttpMessageConverter;
 
-    @Value("${service.basicauth.login}")
-    private String login;
-
-    @Value("${service.basicauth.password}")
-    private String password;
-
     @Before
     public void setup() throws Exception {
         this.mockMvc = webAppContextSetup(webApplicationContext).build();
@@ -89,18 +84,20 @@ public class RestClientTest {
 
 
     @Test
+    @WithMockUser(username = "bodik@list.ru", password = "nenimdada", roles = "USER")
     public void registerNewUser() throws Exception {
         UserDetails userDetails = new UserDetails();
         userDetails.setLocale(Locale.ENGLISH);
         userDetails.setSex(UserDetails.Sex.MALE);
 
-        User user = new User("bodik@list.ru",
+        User user = new User("bodik@list1.ru",
                 new BCryptPasswordEncoder().encode("nenimdada"),
                 Role.USER, true);
         user.setUserDetails(userDetails);
 
         mockMvc.perform(post("/user")
                 .content(this.json(user))
+                .headers(createHeaders(user.getUsername(), user.getPassword()))
                 .param("user",this.json(user))
                 .contentType(contentType))
                 .andExpect(status().isCreated());
@@ -127,7 +124,7 @@ public class RestClientTest {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity test = restTemplate.exchange(testRestUrl,
                 HttpMethod.GET,
-                new HttpEntity<String>(createHeaders(login, password)),
+                new HttpEntity<String>(createHeaders("bodik@list.ru", "nenimdada")),
                 String.class);
         log.info(test.getBody());
         assertNotNull(test.getBody());
@@ -142,6 +139,27 @@ public class RestClientTest {
             String authHeader = "Basic " + new String(encodedAuth);
             set("Authorization", authHeader);
         }};
+    }
+
+    public static class MockSecurityContext implements SecurityContext {
+
+        private static final long serialVersionUID = -1386535243513362694L;
+
+        private Authentication authentication;
+
+        public MockSecurityContext(Authentication authentication) {
+            this.authentication = authentication;
+        }
+
+        @Override
+        public Authentication getAuthentication() {
+            return this.authentication;
+        }
+
+        @Override
+        public void setAuthentication(Authentication authentication) {
+            this.authentication = authentication;
+        }
     }
 }
 

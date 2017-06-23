@@ -1,6 +1,8 @@
 package com.voyager.core;
 
 import com.voyager.core.repository.events.CascadeSaveMongoEventListener;
+import com.voyager.core.security.SpringSecurityAuditorAware;
+import com.voyager.model.entity.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.MessageSource;
@@ -9,11 +11,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.data.mongodb.config.EnableMongoAuditing;
-import org.springframework.data.mongodb.core.mapping.event.ValidatingMongoEventListener;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
@@ -26,8 +25,6 @@ import java.util.Locale;
 @PropertySources({
         @PropertySource(value = "classpath:application.properties")
 })
-@EnableMongoRepositories(basePackages = "com.voyager.core.repository")
-@EnableMongoAuditing
 public class Application {
 
     public static void main(String[] args) {
@@ -37,16 +34,6 @@ public class Application {
     @Bean
     public AbstractSecurityWebApplicationInitializer securityWebApplicationInitializer(){
         return new AbstractSecurityWebApplicationInitializer(){};
-    }
-
-    @Bean
-    public ValidatingMongoEventListener validatingMongoEventListener() {
-        return new ValidatingMongoEventListener(validator());
-    }
-
-    @Bean
-    public LocalValidatorFactoryBean validator() {
-        return new LocalValidatorFactoryBean();
     }
 
     @Bean
@@ -73,5 +60,10 @@ public class Application {
     @Bean
     public CascadeSaveMongoEventListener cascadingMongoEventListener() {
         return new CascadeSaveMongoEventListener();
+    }
+
+    @Bean
+    public AuditorAware<User> myAuditorProvider() {
+        return new SpringSecurityAuditorAware();
     }
 }

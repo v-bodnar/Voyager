@@ -8,6 +8,7 @@ dependencies {
     compile project(':Model')
     testCompile project(':Model')
     testCompile 'org.springframework.boot:spring-boot-starter-test:1.5.4.RELEASE'
+    testCompile group: 'org.springframework.security', name: 'spring-security-test', version: '4.2.3.RELEASE'
 }
 
 war {

@@ -3,14 +3,15 @@ package com.voyager.model.entity;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.PersistenceConstructor;
-import org.springframework.data.annotation.Transient;
+import org.joda.time.DateTime;
+import org.springframework.data.annotation.*;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import repository.annotations.CascadeSave;
 
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
@@ -21,10 +22,10 @@ import java.util.Set;
 /**
  * Created by volodymyr.bodnar on 6/19/2017.
  */
+@Document
 public class User implements org.springframework.security.core.userdetails.UserDetails, CredentialsContainer, Identifiable {
     @Id
     private String id;
-    @NotNull
     @Indexed(unique = true)
     private String email;
     @NotNull
@@ -35,9 +36,13 @@ public class User implements org.springframework.security.core.userdetails.UserD
     @JsonIgnore
     private Set<GrantedAuthority> authorities;
     @DBRef
-    @repository.annotations.CascadeSave
+    @CascadeSave
     private UserDetails userDetails;
     private boolean enabled;
+    @CreatedDate
+    private DateTime createdDate;
+    @LastModifiedDate
+    private DateTime lastModifiedDate;
 
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     @PersistenceConstructor
@@ -134,5 +139,21 @@ public class User implements org.springframework.security.core.userdetails.UserD
 
     public void eraseCredentials() {
         password = null;
+    }
+
+    public DateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(DateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public DateTime getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(DateTime lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
     }
 }
