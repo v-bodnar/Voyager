@@ -16,7 +16,7 @@ import java.util.*;
 @Service
 public class SectorService {
     private static final Logger log = LogManager.getLogger(SectorService.class);
-    private static final int SECTOR_SIDE_SIZE = 30;
+    public static final int SECTOR_SIDE_SIZE = 30;
     private static final Random seed = new Random();
 
     @Autowired
