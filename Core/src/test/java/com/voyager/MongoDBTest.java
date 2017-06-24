@@ -1,7 +1,6 @@
 package com.voyager;
 
 import com.voyager.core.Application;
-import com.voyager.core.repository.CharactersRepository;
 import com.voyager.core.repository.SectorsRepository;
 import com.voyager.core.repository.SpaceShipsRepository;
 import com.voyager.core.repository.UsersRepository;

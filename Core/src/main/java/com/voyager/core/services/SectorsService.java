@@ -1,6 +1,8 @@
 package com.voyager.core.services;
 
+import com.voyager.core.generator.PlanetsGenerator;
 import com.voyager.core.repository.SectorsRepository;
+import com.voyager.model.entity.Planet;
 import com.voyager.model.entity.Sector;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -24,6 +26,9 @@ public class SectorsService {
 
     @Autowired
     private MessageSourceAccessor messageSource;
+
+    @Autowired
+    private PlanetsGenerator planetsGenerator;
 
     public Sector generateSector(List<Sector> existingSectors) {
         List<String> sectorNames = new LinkedList<>(Arrays.asList(messageSource.getMessage("sector.names").split(",")));
@@ -74,6 +79,10 @@ public class SectorsService {
         sector.setStartX(x);
         sector.setStartY(y);
         sector.setName(sectorNames.get(0));
+
+        sectorsRepository.save(sector);
+
+        planetsGenerator.generatePlanetsForSector(sector);
 
         sectorsRepository.save(sector);
 

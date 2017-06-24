@@ -90,6 +90,10 @@ public class Sector extends AbstractEntity {
         }
     }
 
+    public void addPlanet(Planet planet){
+        planets.add(planet);
+    }
+
     @Override
     public int hashCode() {
         return super.hashCode();
