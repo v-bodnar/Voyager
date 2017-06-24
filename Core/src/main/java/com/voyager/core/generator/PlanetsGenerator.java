@@ -12,7 +12,7 @@ import java.util.Random;
  * Created by volodymyr.bodnar on 6/23/2017.
  */
 @Component
-public class PlanetGenerator {
+public class PlanetsGenerator {
     private Random random = new Random();
 
     public void generatePlanetsForSector(Sector sector){

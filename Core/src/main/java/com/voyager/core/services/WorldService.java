@@ -14,13 +14,13 @@ import java.util.Locale;
 @Service
 public class WorldService {
     @Autowired
-    private SectorService sectorService;
+    private SectorsService sectorsService;
 
     private List<Sector> sectors;
 
     @PostConstruct
     public void init() {
         Locale.setDefault(Locale.ENGLISH);
-        sectors = sectorService.findAllSectors();
+        sectors = sectorsService.findAllSectors();
     }
 }

@@ -1,16 +1,22 @@
 package com.voyager.model.entity;
 
+import java.util.List;
+
 /**
  * Created by volodymyr.bodnar on 6/21/2017.
  */
-public class SpaceShip extends AbstractEntity {
-    private String name;
+public class SpaceShip extends AbstractDescribtable {
+    private int level;
+    private int maxMaxCrewSize;
+    private int maxEquipmentCount;
+    private int maxCargoHold;
 
-    public String getName() {
-        return name;
-    }
+    private int hull;
+    private int shields;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    private List<Resource> cargoHold;
+    private List<Character> crew;
+    private List<Equipment> installedEquipment;
+
+
 }

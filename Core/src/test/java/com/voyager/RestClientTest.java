@@ -1,7 +1,7 @@
 package com.voyager;
 
 import com.voyager.core.Application;
-import com.voyager.core.repository.UserRepository;
+import com.voyager.core.repository.UsersRepository;
 import com.voyager.model.entity.Role;
 import com.voyager.model.entity.User;
 import com.voyager.model.entity.UserDetails;
@@ -55,7 +55,7 @@ public class RestClientTest {
     private WebApplicationContext webApplicationContext;
 
     @Autowired
-    private UserRepository userRepository;
+    private UsersRepository usersRepository;
     @Autowired
 
     void setConverters(HttpMessageConverter<?>[] converters) {

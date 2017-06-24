@@ -8,5 +8,5 @@ import com.voyager.model.entity.SpaceShip;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 @Repository
-public interface SpaceShipRepository extends MongoRepository<SpaceShip, String> {
+public interface SpaceShipsRepository extends MongoRepository<SpaceShip, String> {
 }

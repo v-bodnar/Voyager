@@ -1,6 +1,6 @@
 package com.voyager.core.security;
 
-import com.voyager.core.repository.UserRepository;
+import com.voyager.core.repository.UsersRepository;
 import com.voyager.model.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.AuditorAware;
@@ -13,7 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public class SpringSecurityAuditorAware implements AuditorAware<User> {
 
     @Autowired
-    private UserRepository userRepository;
+    private UsersRepository usersRepository;
 
     public User getCurrentAuditor() {
 
@@ -23,6 +23,6 @@ public class SpringSecurityAuditorAware implements AuditorAware<User> {
             return null;
         }
 
-        return userRepository.findOneByEmail(((org.springframework.security.core.userdetails.User)authentication.getPrincipal()).getUsername()).orElse(null);
+        return usersRepository.findOneByEmail(((org.springframework.security.core.userdetails.User)authentication.getPrincipal()).getUsername()).orElse(null);
     }
 }

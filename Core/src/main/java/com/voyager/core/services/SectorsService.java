@@ -1,6 +1,6 @@
 package com.voyager.core.services;
 
-import com.voyager.core.repository.SectorRepository;
+import com.voyager.core.repository.SectorsRepository;
 import com.voyager.model.entity.Sector;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -14,13 +14,13 @@ import java.util.*;
  * Created by volodymyr.bodnar on 6/19/2017.
  */
 @Service
-public class SectorService {
-    private static final Logger log = LogManager.getLogger(SectorService.class);
+public class SectorsService {
+    private static final Logger log = LogManager.getLogger(SectorsService.class);
     public static final int SECTOR_SIDE_SIZE = 30;
     private static final Random seed = new Random();
 
     @Autowired
-    private SectorRepository sectorRepository;
+    private SectorsRepository sectorsRepository;
 
     @Autowired
     private MessageSourceAccessor messageSource;
@@ -37,7 +37,7 @@ public class SectorService {
             sector.setStartX(x);
             sector.setStartY(y);
             sector.setName("Alpha");
-            sectorRepository.save(sector);
+            sectorsRepository.save(sector);
             return sector;
         }
 
@@ -75,7 +75,7 @@ public class SectorService {
         sector.setStartY(y);
         sector.setName(sectorNames.get(0));
 
-        sectorRepository.save(sector);
+        sectorsRepository.save(sector);
 
         log.info("New sector has been created - " + sector);
         return sector;
@@ -94,7 +94,7 @@ public class SectorService {
 
 
     public List<Sector> findAllSectors() {
-        List<Sector> sectors = sectorRepository.findAll();
+        List<Sector> sectors = sectorsRepository.findAll();
         if (sectors == null || sectors.isEmpty()) {
             sectors = new LinkedList<>();
             sectors.add(generateSector(sectors));

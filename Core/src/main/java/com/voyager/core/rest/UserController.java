@@ -1,6 +1,6 @@
 package com.voyager.core.rest;
 
-import com.voyager.core.services.UserService;
+import com.voyager.core.services.UsersService;
 import com.voyager.model.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private UsersService usersService;
 
     @PostMapping("/user")
     @ResponseBody
     public ResponseEntity<User> registerNewUser(@RequestBody User user){
-        user = userService.registerNewUser(user);
+        user = usersService.registerNewUser(user);
         return new ResponseEntity<>(user,HttpStatus.CREATED);
     }
 

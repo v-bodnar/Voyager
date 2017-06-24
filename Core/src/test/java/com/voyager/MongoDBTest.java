@@ -1,10 +1,10 @@
 package com.voyager;
 
 import com.voyager.core.Application;
-import com.voyager.core.repository.CharacterRepository;
-import com.voyager.core.repository.SectorRepository;
-import com.voyager.core.repository.SpaceShipRepository;
-import com.voyager.core.repository.UserRepository;
+import com.voyager.core.repository.CharactersRepository;
+import com.voyager.core.repository.SectorsRepository;
+import com.voyager.core.repository.SpaceShipsRepository;
+import com.voyager.core.repository.UsersRepository;
 import com.voyager.model.entity.*;
 import com.voyager.model.entity.Character;
 import org.junit.Ignore;
@@ -26,16 +26,16 @@ import static org.junit.Assert.assertTrue;
 public class MongoDBTest {
 
     @Autowired
-    private CharacterRepository characterRepository;
+    private CharactersRepository charactersRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private UsersRepository usersRepository;
 
     @Autowired
-    private SectorRepository sectorRepository;
+    private SectorsRepository sectorsRepository;
 
     @Autowired
-    private SpaceShipRepository spaceShipRepository;
+    private SpaceShipsRepository spaceShipsRepository;
 
     @Test
     @Ignore
@@ -60,9 +60,9 @@ public class MongoDBTest {
 //        character.setSector(sector);
 //        character.setSpaceShip(spaceShip);
 //        character = characterRepository.save(character);
-        Character foundCharacter = characterRepository.findAll().stream().findFirst().orElse(null);
+        Character foundCharacter = charactersRepository.findAll().stream().findFirst().orElse(null);
 
-        Sector foundSector = sectorRepository.findAll().stream().findFirst().orElse(null);
+        Sector foundSector = sectorsRepository.findAll().stream().findFirst().orElse(null);
         assertTrue(foundSector != null);
     }
 
@@ -73,7 +73,7 @@ public class MongoDBTest {
         User user = new User("bodik@list.ru",
                 new BCryptPasswordEncoder().encode("nenimdada"),
                 Role.USER, true);
-        user = userRepository.save(user);
+        user = usersRepository.save(user);
         assertNotNull(user);
     }
 }

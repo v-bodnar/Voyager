@@ -1,6 +1,6 @@
 package com.voyager.core.services;
 
-import com.voyager.core.repository.UserRepository;
+import com.voyager.core.repository.UsersRepository;
 import com.voyager.model.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
  * Created by Vova on 6/20/2017.
  */
 @Service
-public class UserService {
+public class UsersService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UsersRepository usersRepository;
 
     public User registerNewUser(User user){
-        return userRepository.save(user);
+        return usersRepository.save(user);
     }
 }
