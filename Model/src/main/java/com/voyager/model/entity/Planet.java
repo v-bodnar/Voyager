@@ -18,8 +18,6 @@ public class Planet extends SpaceBody{
     @Transient
     public static final int MAX_POPULATION = 100000;
 
-    private String name;
-    private String description;
     private Type type;
     private int size;
     private int population;
@@ -34,26 +32,6 @@ public class Planet extends SpaceBody{
     private Religion religion;
     @DBRef
     private Politics politics;
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String getDescription() {
-        return description;
-    }
-
-    @Override
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public Type getType() {
         return type;
@@ -138,8 +116,6 @@ public class Planet extends SpaceBody{
         if (size != planet.size) return false;
         if (population != planet.population) return false;
         if (homeplanetPossible != planet.homeplanetPossible) return false;
-        if (name != null ? !name.equals(planet.name) : planet.name != null) return false;
-        if (description != null ? !description.equals(planet.description) : planet.description != null) return false;
         if (type != planet.type) return false;
         if (locations != null ? !locations.equals(planet.locations) : planet.locations != null) return false;
         if (sector != null ? !sector.equals(planet.sector) : planet.sector != null) return false;
@@ -152,8 +128,6 @@ public class Planet extends SpaceBody{
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (type != null ? type.hashCode() : 0);
         result = 31 * result + size;
         result = 31 * result + population;

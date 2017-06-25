@@ -43,6 +43,8 @@ public class SectorsService {
             sector.setStartY(y);
             sector.setName("Alpha");
             sectorsRepository.save(sector);
+            planetsGenerator.generatePlanetsForSector(sector);
+            sectorsRepository.save(sector);
             return sector;
         }
 

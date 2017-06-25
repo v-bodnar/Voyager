@@ -19,10 +19,10 @@ public abstract class AbstractEntity implements Identifiable{
     private DateTime lastModifiedDate;
 
     @CreatedBy
-    private User createdBy;
+    private String createdBy;
 
     @LastModifiedBy
-    private User lastModifiedBy;
+    private String lastModifiedBy;
 
     @Version
     private Long  version;
@@ -51,19 +51,19 @@ public abstract class AbstractEntity implements Identifiable{
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public User getCreatedBy() {
+    public String getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(User createdBy) {
+    public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
-    public User getLastModifiedBy() {
+    public String getLastModifiedBy() {
         return lastModifiedBy;
     }
 
-    public void setLastModifiedBy(User lastModifiedBy) {
+    public void setLastModifiedBy(String lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
     }
 

@@ -9,6 +9,7 @@ import com.voyager.core.utils.FileUtils;
 import com.voyager.core.utils.XYIterator;
 import com.voyager.model.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -40,9 +41,12 @@ public class PlanetsGenerator {
     @Autowired
     private ReligionsRepository religionsRepository;
 
+    @Autowired
+    private ResourceLoader resourceLoader;
+
     @PostConstruct
     public void init() {
-        planetNames = FileUtils.readLinesFromFile("classpath:planet_names.txt");
+        planetNames = FileUtils.readLinesFromFile(resourceLoader.getResource("classpath:planet_names.txt"));
     }
 
     public void generatePlanetsForSector(Sector sector) {
@@ -51,7 +55,7 @@ public class PlanetsGenerator {
                 new ActionInSquare() {
                     @Override
                     public void execute(int x, int y) {
-                        if (random.nextInt(3) == 0) { //33 percents
+                        if (random.nextInt(5) == 0) { //20 percents
                             Planet planet = generatePlanet(x, y);
                             planet.setSector(sector);
                             sector.addPlanet(planet);

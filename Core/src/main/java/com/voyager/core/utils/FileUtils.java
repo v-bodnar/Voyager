@@ -1,5 +1,7 @@
 package com.voyager.core.utils;
 
+import org.springframework.core.io.Resource;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
@@ -10,12 +12,12 @@ import java.util.Scanner;
  * Created by Vova on 6/24/2017.
  */
 public class FileUtils {
-    public static List<String> readLinesFromFile(String filePath){
+    public static List<String> readLinesFromFile(Resource resource){
         Scanner s = null;
 
         try {
-            s = new Scanner(new File(filePath));
-        } catch (FileNotFoundException e) {
+            s = new Scanner(resource.getFile());
+        } catch (java.io.IOException e) {
             e.printStackTrace();
         }
 

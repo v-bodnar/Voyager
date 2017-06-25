@@ -63,7 +63,7 @@ public class Application {
     }
 
     @Bean
-    public AuditorAware<User> myAuditorProvider() {
+    public AuditorAware<String> myAuditorProvider() {
         return new SpringSecurityAuditorAware();
     }
 }

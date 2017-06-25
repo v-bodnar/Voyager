@@ -7,14 +7,14 @@ import com.voyager.core.services.SectorsService;
  */
 public class XYIterator {
     public static void iterateXY(int startX, int startY, ActionInSquare action){
-        for (int y = startY; y < y + SectorsService.SECTOR_SIDE_SIZE; y++){
+        for (int y = startY; y < startY + SectorsService.SECTOR_SIDE_SIZE; y++){
             iterateX(startX, y, action);
         }
     }
 
     public static void iterateX(int startX,int y, ActionInSquare action){
-        for (int x = startX; x < x + SectorsService.SECTOR_SIDE_SIZE; x++){
-
+        for (int x = startX; x < startX + SectorsService.SECTOR_SIDE_SIZE; x++){
+            action.execute(x,y);
         }
     }
 }

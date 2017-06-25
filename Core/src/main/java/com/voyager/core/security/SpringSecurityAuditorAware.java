@@ -10,19 +10,24 @@ import org.springframework.security.core.context.SecurityContextHolder;
 /**
  * Created by volodymyr.bodnar on 6/23/2017.
  */
-public class SpringSecurityAuditorAware implements AuditorAware<User> {
+public class SpringSecurityAuditorAware implements AuditorAware<String> {
 
     @Autowired
     private UsersRepository usersRepository;
 
-    public User getCurrentAuditor() {
+    public String getCurrentAuditor() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || !authentication.isAuthenticated()) {
             return null;
         }
+        User user = usersRepository.findOneByEmail(((org.springframework.security.core.userdetails.User)authentication.getPrincipal()).getUsername()).orElse(null);
+        if(user == null){
+            return null;
+        }else {
+            return user.getEmail();
+        }
 
-        return usersRepository.findOneByEmail(((org.springframework.security.core.userdetails.User)authentication.getPrincipal()).getUsername()).orElse(null);
     }
 }

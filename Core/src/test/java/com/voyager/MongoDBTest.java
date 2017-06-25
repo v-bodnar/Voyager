@@ -25,9 +25,6 @@ import static org.junit.Assert.assertTrue;
 public class MongoDBTest {
 
     @Autowired
-    private CharactersRepository charactersRepository;
-
-    @Autowired
     private UsersRepository usersRepository;
 
     @Autowired
@@ -59,10 +56,10 @@ public class MongoDBTest {
 //        character.setSector(sector);
 //        character.setSpaceShip(spaceShip);
 //        character = characterRepository.save(character);
-        Character foundCharacter = charactersRepository.findAll().stream().findFirst().orElse(null);
-
-        Sector foundSector = sectorsRepository.findAll().stream().findFirst().orElse(null);
-        assertTrue(foundSector != null);
+//        Character foundCharacter = charactersRepository.findAll().stream().findFirst().orElse(null);
+//
+//        Sector foundSector = sectorsRepository.findAll().stream().findFirst().orElse(null);
+//        assertTrue(foundSector != null);
     }
 
     @Test

@@ -3,11 +3,16 @@ package com.voyager.core.services;
 import com.voyager.core.repository.PoliticsRepository;
 import com.voyager.core.repository.RacesRepository;
 import com.voyager.core.repository.ReligionsRepository;
-import com.voyager.model.entity.Politics;
-import com.voyager.model.entity.Race;
-import com.voyager.model.entity.Sector;
+import com.voyager.core.repository.UsersRepository;
+import com.voyager.core.security.SecurityUserService;
+import com.voyager.model.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -34,11 +39,20 @@ public class WorldService {
     @Autowired
     private ReligionsRepository religionsRepository;
 
+    @Autowired
+    private UsersRepository usersRepository;
+
     private List<Sector> sectors;
 
     @PostConstruct
     public void init() {
         Locale.setDefault(Locale.ENGLISH);
+//        User defaultUser = new User("bodik@list.ru",
+//                new BCryptPasswordEncoder().encode("nenimdada"),
+//                Role.USER, true);
+//        User user = usersRepository.findOneByEmail("bodik@list.ru").orElseGet(() -> usersRepository.save(defaultUser)); //defaultUser
+//        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
+//        SecurityContextHolder.getContext().setAuthentication(token);
         initialRaces();
         initialReligions();
         initialPolitics();
@@ -73,7 +87,23 @@ public class WorldService {
     }
 
     private void initialReligions(){
+        Religion scientology = new Religion();
+        scientology.setName(messageSource.getMessage("religion.scientology.name"));
+        scientology.setDescription(messageSource.getMessage("religion.scientology.description"));
+        religionsRepository.findOneByName(messageSource.getMessage("religion.scientology.name"))
+                .orElseGet(() -> religionsRepository.save(scientology));
 
+        Religion harmonism = new Religion();
+        harmonism.setName(messageSource.getMessage("religion.harmonism.name"));
+        harmonism.setDescription(messageSource.getMessage("religion.harmonism.description"));
+        religionsRepository.findOneByName(messageSource.getMessage("religion.harmonism.name"))
+                .orElseGet(() -> religionsRepository.save(harmonism));
+
+        Religion necrocism = new Religion();
+        necrocism.setName(messageSource.getMessage("religion.necrocism.name"));
+        necrocism.setDescription(messageSource.getMessage("religion.necrocism.description"));
+        religionsRepository.findOneByName(messageSource.getMessage("religion.necrocism.name"))
+                .orElseGet(() -> religionsRepository.save(necrocism));
     }
 
     private void initialPolitics(){
