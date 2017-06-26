@@ -47,12 +47,7 @@ public class WorldService {
     @PostConstruct
     public void init() {
         Locale.setDefault(Locale.ENGLISH);
-//        User defaultUser = new User("bodik@list.ru",
-//                new BCryptPasswordEncoder().encode("nenimdada"),
-//                Role.USER, true);
-//        User user = usersRepository.findOneByEmail("bodik@list.ru").orElseGet(() -> usersRepository.save(defaultUser)); //defaultUser
-//        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
-//        SecurityContextHolder.getContext().setAuthentication(token);
+        initialLocations();
         initialRaces();
         initialReligions();
         initialPolitics();
@@ -124,5 +119,22 @@ public class WorldService {
         komunism.setDescription(messageSource.getMessage("politics.komunism.description"));
         politicsRepository.findOneByName(messageSource.getMessage("politics.komunism.name"))
                 .orElseGet(() -> politicsRepository.save(komunism));
+    }
+
+    private void initialLocations(){
+        Location location = new Location();
+        location.setName();
+        location.setDescription();
+        location.setPlanetType();
+        location.setResource();
+    }
+
+    private void initialResources(){
+        Resource resource = new Resource();
+        resource.setName();
+        resource.setDescription();
+        resource.setAmmount();
+        resource.setSpreading();
+        resource.setType(Resource.Type.LIQUID);
     }
 }
