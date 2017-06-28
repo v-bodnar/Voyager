@@ -33,6 +33,6 @@ public class Resource extends AbstractDescribtable{
     }
 
     public enum Type{
-        MINERAL, METAL, ORGANIC, LIQUID;
+        MINERAL, METAL, ORGANIC, LIQUID, GAS;
     }
 }
